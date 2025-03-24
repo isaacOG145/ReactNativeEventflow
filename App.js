@@ -1,12 +1,18 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';  // Necesario para la navegación
+import PublicStack from './src/components/navigation/PublicStack'; // Asegúrate de importar tu stack correctamente
 
 export default function App() {
+  // Aquí manejamos el estado de la sesión
+  const [session, setSession] = useState(null);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NavigationContainer>
+      <PublicStack setSession={setSession} />
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
