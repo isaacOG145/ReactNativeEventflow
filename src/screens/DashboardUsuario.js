@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
+// Componente del botón de navegación con imagen
 const NavButton = ({ navigation, name, screen, icon }) => (
   <TouchableOpacity 
     style={styles.navItem} 
     onPress={() => navigation.navigate(screen)}
   >
-    <Text style={styles.navIcon}>{icon}</Text>
+    <Image source={icon} style={styles.navIconImage} />
     <Text style={styles.navText}>{name}</Text>
   </TouchableOpacity>
 );
 
+// Pantalla principal del usuario
 export default function DashboardUsuario({ navigation }) {
   return (
     <View style={styles.container}>
@@ -18,12 +20,14 @@ export default function DashboardUsuario({ navigation }) {
       
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Feria de Ciencias 2024</Text>
+
         <TouchableOpacity 
           style={styles.button} 
           onPress={() => navigation.navigate('ModalQR')}
         >
           <Text style={styles.buttonText}>Ver QR de acceso</Text>
         </TouchableOpacity>
+
         <TouchableOpacity 
           style={styles.button} 
           onPress={() => navigation.navigate('DetalleUsuario', {
@@ -40,14 +44,32 @@ export default function DashboardUsuario({ navigation }) {
         </TouchableOpacity>
       </View>
 
+      {/* Barra de navegación inferior */}
       <View style={styles.bottomNav}>
-        <NavButton navigation={navigation} name="Inicio" screen="Home" icon="🏠" />
-        <NavButton navigation={navigation} name="Menú" screen="Menu" icon="📋" />
+        <NavButton 
+          navigation={navigation} 
+          name="Inicio" 
+          screen="Home" 
+          icon={require('../../assets/hogar.png')} 
+        />
+        <NavButton 
+          navigation={navigation} 
+          name="MisEventos" 
+          screen="MisEventos" 
+          icon={require('../../assets/entrada-active.png')} 
+        />
+        <NavButton 
+          navigation={navigation} 
+          name="Menú" 
+          screen="Menu" 
+          icon={require('../../assets/menu-active.png')} 
+        />
       </View>
     </View>
   );
 }
 
+// Estilos
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
@@ -102,15 +124,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10
   },
   navItem: {
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  navIcon: {
-    fontSize: 24,
-    color: 'white'
+  navIconImage: {
+    width: 24,
+    height: 24,
+    tintColor: 'white',
+    marginBottom: 2
   },
   navText: {
     color: 'white',
     fontSize: 12,
-    marginTop: 2
   }
 });

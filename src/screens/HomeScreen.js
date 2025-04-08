@@ -139,18 +139,18 @@ export default function HomeScreen({ navigation }) {
 
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.navIcon}>🏠</Text>
+        <Image source={require('../../assets/hogar.png')} style={styles.navIconImage} />
           <Text style={styles.navText}>Inicio</Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.navItem} 
           onPress={() => navigation.navigate('MisEventos')} // Nombre corregido
         >
-          <Text style={styles.navIcon}>📅</Text>
+          <Image source={require('../../assets/entrada-active.png')} style={styles.navIconImage} />
           <Text style={styles.navText}>Mis eventos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem} onPress={() => setSidebarVisible(true)}>
-          <Text style={styles.navIcon}>📋</Text>
+        <Image source={require('../../assets/menu-active.png')} style={styles.navIconImage} />
           <Text style={styles.navText}>Menú</Text>
         </TouchableOpacity>
       </View>
@@ -175,5 +175,11 @@ const styles = StyleSheet.create({
   bottomNav: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#6200EE', width: '100%', height: 60, position: 'absolute', bottom: 0, left: 0 },
   navItem: { alignItems: 'center' },
   navIcon: { fontSize: 24, color: 'white' },
-  navText: { color: 'white', fontSize: 12, marginTop: 5 }
+  navText: { color: 'white', fontSize: 12, marginTop: 5 },
+  navIconImage: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    tintColor: 'white' // opcional, solo si quieres que se pinte del color del texto
+  }
 });

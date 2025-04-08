@@ -56,6 +56,7 @@ export default function Sidebar({ visible, onClose, navigation }) {
           </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
+      
     </Modal>
   );
 }
