@@ -1,4 +1,5 @@
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Colors, fontSizes, Spacing} from '../kernel/Styles';
 import { useState } from 'react';
 
 export default function PurpleButton({ children, onPress }) {
@@ -26,17 +27,17 @@ const styles = StyleSheet.create({
         alignItems: 'center', // Equivalente a text-align en React Native
         justifyContent: 'center',
         width: '100%',
-        padding: 4,
+        padding: Spacing.medium
     },
     btnPurple: {
-        backgroundColor: '#8005A3',
+        backgroundColor: Colors.purple,
     },
     text: {
-        color: '#FAFAFA',
-        fontSize: 16,
+        color: Colors.textLight,
+        fontSize: fontSizes.normal,
     },
     // Agregar a tus estilos:
     btnPurpleHover: {
-        backgroundColor: '#9125B0',
+        backgroundColor: Colors.purpleHover,
     },
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
 
 import LoginScreen from './src/screens/LoginScreen';
 import RecoverPasswordScreen1 from './src/screens/RecoverPasswordScreen1';
