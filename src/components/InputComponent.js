@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Image } from 'react-native';
 import PropTypes from 'prop-types';
 
-const InputComponent = ({ 
-  type = "text",
+const InputComponent = ({
   value = "",
   onChangeText = () => {},
-  label = "",
+  label = null,
   required = false,
   error = "",
   maxLength = null,
-  placeholder = "",
   disabled = false,
   containerStyle = {},
-  inputStyle = {}
+  inputStyle = {},
+  labelStyle = {},
+  imageSource = null,
+  imageStyle = {}
 }) => {
   const [charCount, setCharCount] = useState(value.length);
   const [showMaxLengthAlert, setShowMaxLengthAlert] = useState(false);
@@ -34,12 +35,15 @@ const InputComponent = ({
   return (
     <View style={[styles.container, containerStyle]}>
       {label && (
-        <Text style={styles.label}>
-          {label}
-          {required && <Text style={styles.required}> *</Text>}
-        </Text>
+        <View style={styles.labelContainer}>
+          {imageSource && <Image source={imageSource} style={[styles.image, imageStyle]} />}
+          <Text style={[styles.label, labelStyle]}>
+            {label}
+            {required && <Text style={styles.required}> *</Text>}
+          </Text>
+        </View>
       )}
-      
+
       <TextInput
         style={[
           styles.input,
@@ -49,30 +53,22 @@ const InputComponent = ({
         ]}
         value={value}
         onChangeText={handleTextChange}
-        placeholder={placeholder}
-        placeholderTextColor="#999"
-        secureTextEntry={type === "password"}
         editable={!disabled}
         maxLength={maxLength}
-        keyboardType={
-          type === "email" ? "email-address" :
-          type === "number" ? "numeric" :
-          "default"
-        }
       />
-      
+
       {(maxLength && !error) && (
         <Text style={styles.charCount}>
           {charCount}/{maxLength}
         </Text>
       )}
-      
+
       {showMaxLengthAlert && (
         <Text style={styles.alertText}>
           Máximo {maxLength} caracteres permitidos
         </Text>
       )}
-      
+
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
@@ -84,14 +80,21 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     width: '100%',
   },
+  labelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   label: {
     fontSize: 16,
-    marginBottom: 8,
     color: '#141414',
     fontWeight: 'normal',
   },
   required: {
     color: 'red',
+  },
+  image: {
+    marginRight: 8,
   },
   input: {
     width: '100%',
@@ -129,17 +132,18 @@ const styles = StyleSheet.create({
 
 // Validación de props
 InputComponent.propTypes = {
-  type: PropTypes.oneOf(['text', 'password', 'email', 'number']),
   value: PropTypes.string,
   onChangeText: PropTypes.func,
   label: PropTypes.string,
   required: PropTypes.bool,
   error: PropTypes.string,
   maxLength: PropTypes.number,
-  placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   containerStyle: PropTypes.object,
   inputStyle: PropTypes.object,
+  labelStyle: PropTypes.object,
+  imageSource: PropTypes.any,
+  imageStyle: PropTypes.object,
 };
 
 export default InputComponent;
