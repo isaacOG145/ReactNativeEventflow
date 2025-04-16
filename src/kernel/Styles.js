@@ -7,8 +7,8 @@ export const Colors = {
     blueHover: '#344BB5',
     purple: '#8005A3',
     purpleHover: '#9125B0',
-    violet: '#5C30B6',
-    violetHover: '#340C85',
+    violet: '#4210A9',
+    violetHover: '#5C30B6',
     red: '#dc3545'
 
 };

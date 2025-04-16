@@ -129,7 +129,7 @@ export default function LoginScreen({ navigation }) {
 
           <TouchableOpacity
             style={styles.linkContainer}
-            onPress={() => navigation.navigate('RecoverPassword1')}
+            onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.link}>¿Has olvidado tu contraseña?</Text>
           </TouchableOpacity>

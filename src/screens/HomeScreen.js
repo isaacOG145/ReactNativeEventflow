@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, Dimensions, ScrollView } from 'react-native';
 import Sidebar from '../components/Sidebar';
+import CustomHeader from '../components/CustomHeader';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -97,13 +98,13 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.date}>{date}</Text>
       <Text style={styles.description}>{description}</Text>
 
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('DetalleUsuario', { 
+        onPress={() => navigation.navigate('DetalleUsuario', {
           eventTitle: title,
           eventDate: date,
           eventDescription: description,
-          eventImages: images 
+          eventImages: images
         })}
       >
         <Text style={styles.buttonText}>Ver detalles</Text>
@@ -112,8 +113,12 @@ export default function HomeScreen({ navigation }) {
   );
 
   return (
+
     <View style={styles.container}>
+      <CustomHeader />
+
       <ScrollView contentContainerStyle={styles.scrollContent}>
+
         {renderCarousel(
           scienceFairImages,
           scienceIndex,
@@ -139,18 +144,18 @@ export default function HomeScreen({ navigation }) {
 
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
-        <Image source={require('../../assets/hogar.png')} style={styles.navIconImage} />
+          <Image source={require('../../assets/hogar.png')} style={styles.navIconImage} />
           <Text style={styles.navText}>Inicio</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={styles.navItem} 
+        <TouchableOpacity
+          style={styles.navItem}
           onPress={() => navigation.navigate('MisEventos')} // Nombre corregido
         >
           <Image source={require('../../assets/entrada-active.png')} style={styles.navIconImage} />
           <Text style={styles.navText}>Mis eventos</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navItem} onPress={() => setSidebarVisible(true)}>
-        <Image source={require('../../assets/menu-active.png')} style={styles.navIconImage} />
+          <Image source={require('../../assets/menu-active.png')} style={styles.navIconImage} />
           <Text style={styles.navText}>Menú</Text>
         </TouchableOpacity>
       </View>
