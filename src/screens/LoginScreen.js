@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import BlueButton from '../components/BlueButton';
+import InputComponent from '../components/InputComponent';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -9,30 +11,30 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.title}>Iniciar sesión</Text>
-        
-        <TextInput 
-          style={styles.input} 
-          placeholder="Ingresar usuario" 
-          value={username} 
-          onChangeText={setUsername} 
+
+        <InputComponent
+          type="email"
+          
+          label="Correo electrónico"
+          required
+          
+          placeholder="ejemplo@correo.com"
+          maxLength={50}
         />
-        
-        <TextInput 
-          style={styles.input} 
-          placeholder="Ingresar contraseña" 
-          secureTextEntry 
-          value={password} 
-          onChangeText={setPassword} 
+
+        <TextInput
+          style={styles.input}
+          placeholder="Ingresar contraseña"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
-        
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Text style={styles.buttonText}>Iniciar sesión</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
+
+        <BlueButton onPress={() => navigation.navigate('Home')}>
+          Iniciar sesión
+        </BlueButton>
+
+        <TouchableOpacity
           style={styles.linkContainer}
           onPress={() => navigation.navigate('RecoverPassword1')}
         >
@@ -44,9 +46,9 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    justifyContent: 'center', 
+  container: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f0f0f0'
   },
@@ -61,32 +63,32 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  title: { 
-    fontSize: 24, 
-    fontWeight: 'bold', 
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 25,
     color: '#333'
   },
-  input: { 
-    width: '100%', 
+  input: {
+    width: '100%',
     padding: 12,
-    marginVertical: 10, 
+    marginVertical: 10,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
     backgroundColor: '#f8f8f8',
     fontSize: 16
   },
-  button: { 
-    backgroundColor: '#6200EE', 
+  button: {
+    backgroundColor: '#6200EE',
     padding: 14,
     borderRadius: 8,
     marginTop: 15,
     width: '100%'
   },
-  buttonText: { 
-    color: '#FFF', 
+  buttonText: {
+    color: '#FFF',
     textAlign: 'center',
     fontWeight: '600',
     fontSize: 16
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'center'
   },
-  link: { 
+  link: {
     color: '#6200EE',
     fontWeight: '500',
     textDecorationLine: 'underline'
