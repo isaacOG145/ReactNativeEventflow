@@ -52,11 +52,8 @@ export default function LoginScreen({ navigation }) {
         password,
       });
 
-      const { jwt, userId, email: userEmail, role } = response.data;
+      const  jwt  = response.data.result.jwt;
 
-      // Aquí puedes guardar los datos en algún lugar (AsyncStorage o contexto global)
-      console.log('Token:', jwt);
-      console.log('Rol:', role);
       await saveToken(jwt);
       showMessage('success', "Acceso autorizado");
 
@@ -65,14 +62,15 @@ export default function LoginScreen({ navigation }) {
       }, 1500);
 
     } catch (error) {
+      console.log(error)
 
       if (error.response) {
         const status = error.response.status;
 
-        if (status === 401) {
-          showMessage('error', 'Credenciales incorrectas.');
-        } else if (status === 403) {
-          showMessage('error', 'Acceso no autorizado.');
+        if (status == 401) {
+          showMessage('error', 'Correo o contraseña incorrectas.');
+        } else if (status == 403) {
+          showMessage('error', 'Usuario inactivo. Contacta al administrador.');
         } else {
           showMessage('error', 'Error al iniciar sesión. Intenta nuevamente.');
         }
