@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
+import { Colors } from '../kernel/Styles';
 import Sidebar from '../components/Sidebar';
 import CustomHeader from '../components/CustomHeader';
 import ActivityCard from '../components/ActivityCard';
@@ -12,22 +13,39 @@ export default function HomeScreen({ navigation }) {
       <CustomHeader />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/** Aquí cargaran las cards sin carrusel */}
+        <Text style={styles.title}>Talleres disponibles para ti</Text>
+        <ActivityCard
+          activity={{
+            name: "Taller de React Native",
+            typeActivity: "EVENT",
+            date: "16-04-2025",
+            description: "Aprende a desarrollar apps móviles...",
+            imageUrls: [
+              "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1743956020/vqn9ybkfhai7wc0bfj4n.jpg",
+              "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1743956021/qih6uqprdxex6xleqa52.jpg",
+              "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1744742521/b1tf2zrudp6vipe9u36e.jpg"]
+          }}
+          onPressBlue={() => navigation.navigate('Details')}
+          textBlue="prueba 1"
+        />
+
         <ActivityCard
           activity={{
             name: "Taller de React Native",
             typeActivity: "WORKSHOP",
             fromActivity: { name: "Conferencia Tech" },
             quota: 30,
+            time: "3:00pm",
             description: "Aprende a desarrollar apps móviles...",
             imageUrls: [
               "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1743956020/vqn9ybkfhai7wc0bfj4n.jpg",
               "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1743956021/qih6uqprdxex6xleqa52.jpg",
-            "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1744742521/b1tf2zrudp6vipe9u36e.jpg"]
+              "http://res.cloudinary.com/dvsmwzs2g/image/upload/v1744742521/b1tf2zrudp6vipe9u36e.jpg"]
           }}
-          mobileLabel="15 Oct - 10:00 AM"
           onPressBlue={() => navigation.navigate('Details')}
           onPressPurple={() => shareContent()}
+          textBlue="prueba 1"
+          textPurple="prueba 2"
         />
       </ScrollView>
 
@@ -58,7 +76,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f0f0f0', paddingBottom: 30 },
   scrollContent: { paddingVertical: 20, alignItems: 'center', paddingBottom: 80 },
   card: { width: '90%', backgroundColor: 'white', borderRadius: 15, padding: 20, elevation: 5, marginBottom: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', textAlign: 'center', marginBottom: 15 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 15 },
   description: { fontSize: 14, color: '#666', marginVertical: 10, textAlign: 'center' },
   button: { backgroundColor: '#6200EE', padding: 12, borderRadius: 8, marginTop: 15, alignSelf: 'center', width: '100%' },
   buttonText: { color: '#FFF', textAlign: 'center', fontWeight: '600' },
