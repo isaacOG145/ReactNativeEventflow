@@ -9,13 +9,13 @@ import {
     Platform
 } from 'react-native';
 import { Colors, fontSizes, Spacing } from '../kernel/Styles';
+import { formatDate, formatTime } from '../utils/dateUtils';
 import BlueButton from '../components/BlueButton';
 import PurpleButton from '../components/PurpleButton';
 import Carousel from 'react-native-reanimated-carousel';
 
 export default function ActivityCard({
     activity,
-    mobileLabel,
     onPressBlue,
     onPressPurple,
     textBlue,
@@ -60,21 +60,28 @@ export default function ActivityCard({
                 ) : (
                     <>
                         <View style={styles.badgePurple}>
-                            <Text style={styles.badgeText}>Evento asociado: {activity.fromActivity.name}</Text>
+                            <Text style={styles.badgeText}>Evento asociado: {activity.associatedEvent}</Text>
                         </View>
 
                         <View style={styles.rowContainer}>
                             <View style={[styles.badgeBlue, styles.badgeMargin]}>
-                                <Text style={styles.badgeText}>Cupo: {activity.quota}</Text>
+                                <Text style={styles.badgeText}>Cupo: {activity.totalQuota}</Text>
+                            </View>
+
+                            <View style={[styles.badgePurple, styles.badgeMargin]}>
+                                <Text style={styles.badgeText}>Disponible: {activity.availableQuota}</Text>
                             </View>
 
                             <View style={styles.badgeViolet}>
-                                <Text style={styles.badgeText}>Hora: {activity.time}</Text>
+                                <Text style={styles.badgeText}>Hora: {formatTime(activity.time)}</Text>
                             </View>
                         </View>
                     </>
                 )}
 
+                {activity.speaker && (
+                    <Text style={styles.textBold}>Ponente: {activity.speaker}</Text>
+                )}
 
 
                 <ScrollView
@@ -177,8 +184,12 @@ const styles = StyleSheet.create({
     badgeMargin: {
         marginRight: 12,
     },
+    textBold:{
+        fontWeight: 'bold',
+        fontSize: fontSizes.normal
+    },
     descriptionContainer: {
-        maxHeight: 100,
+        height: 'auto',
         marginBottom: Spacing.medium,
     },
     descriptionText: {
