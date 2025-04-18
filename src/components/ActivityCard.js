@@ -54,27 +54,36 @@ export default function ActivityCard({
                 </Text>
 
                 {activity.typeActivity === "EVENT" ? (
-                    <View style={styles.badgeViolet}>
+                    <View style={[styles.badge, styles.backgroundViolet]}>
                         <Text style={styles.badgeText}>Fecha: {activity.date}</Text>
                     </View>
                 ) : (
                     <>
-                        <View style={styles.badgePurple}>
+                        <View style={[styles.badge, styles.backgroundPurple]}>
                             <Text style={styles.badgeText}>Evento asociado: {activity.associatedEvent}</Text>
                         </View>
 
                         <View style={styles.rowContainer}>
-                            <View style={[styles.badgeBlue, styles.badgeMargin]}>
-                                <Text style={styles.badgeText}>Cupo: {activity.totalQuota}</Text>
-                            </View>
 
-                            <View style={[styles.badgePurple, styles.badgeMargin]}>
-                                <Text style={styles.badgeText}>Disponible: {activity.availableQuota}</Text>
-                            </View>
-
-                            <View style={styles.badgeViolet}>
+                            <View style={[styles.badge, styles.backgroundViolet]}>
                                 <Text style={styles.badgeText}>Hora: {formatTime(activity.time)}</Text>
                             </View>
+                            <View style={[styles.badge,styles.backgroundBlue]}>
+                                <Text style={styles.badgeText}>Cupo: {activity.totalQuota}</Text>
+                            </View>
+                            {activity.availableQuota != 0 ? (
+                                <View style={[styles.badge,styles.backgroundGreen]}>
+                                    <Text style={styles.badgeText}>Disponible: {activity.availableQuota}</Text>
+                                </View>
+                            ) : (
+                                <View style={[styles.badge,styles.backgroundRed]}>
+                                    <Text style={styles.badgeText}> Lleno </Text>
+                                </View>
+                            )
+
+                            }
+
+
                         </View>
                     </>
                 )}
@@ -146,45 +155,37 @@ const styles = StyleSheet.create({
         color: Colors.textPrimary,
         marginBottom: Spacing.small,
     },
-    badgePurple: {
-        backgroundColor: Colors.purple,
+    badge: {
         borderRadius: 12,
         paddingHorizontal: 4,
         paddingVertical: 2,
         marginVertical: 4,
+        marginRight: 12,
         alignSelf: 'flex-start',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    badgeBlue: {
-        backgroundColor: Colors.blue,
-        borderRadius: 12,
-        paddingHorizontal: 4,
-        paddingVertical: 2,
-        marginVertical: 4,
-        alignSelf: 'flex-start',
-        alignItems: 'center',
-        justifyContent: 'center',
+    backgroundViolet: {
+        backgroundColor: Colors.violet
     },
-    badgeViolet: {
-        backgroundColor: Colors.violet,
-        borderRadius: 12,
-        paddingHorizontal: 4,
-        paddingVertical: 2,
-        marginVertical: 4,
-        alignSelf: 'flex-start',
-        alignItems: 'center',
-        justifyContent: 'center',
+    backgroundPurple: {
+        backgroundColor: Colors.purple
+    },
+    backgroundBlue: {
+        backgroundColor: Colors.blue
+    },
+    backgroundGreen: {
+        backgroundColor: Colors.green
+    },
+    backgroundRed: {
+        backgroundColor: Colors.red
     },
     badgeText: {
         color: 'white',
         fontSize: 12,
         fontWeight: 'bold',
     },
-    badgeMargin: {
-        marginRight: 12,
-    },
-    textBold:{
+    textBold: {
         fontWeight: 'bold',
         fontSize: fontSizes.normal
     },

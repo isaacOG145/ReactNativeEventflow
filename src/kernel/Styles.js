@@ -9,7 +9,8 @@ export const Colors = {
     purpleHover: '#9125B0',
     violet: '#4210A9',
     violetHover: '#5C30B6',
-    red: '#dc3545'
+    red: '#dc3545',
+    green: '#28A745'
 
 };
 

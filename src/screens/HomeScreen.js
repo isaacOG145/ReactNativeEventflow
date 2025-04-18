@@ -3,24 +3,24 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView } from 'rea
 import Sidebar from '../components/Sidebar';
 import CustomHeader from '../components/CustomHeader';
 import ActivityCard from '../components/ActivityCard';
+import ModalComponent from '../components/ModalComponent';
+import BottomNav from '../components/BottomNav';
 import { getUserProfile, getWorkshopsForUser } from '../config/api';
 
 
 export default function HomeScreen({ navigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [workshops, setWorkshops] = useState([]); // Estado para almacenar talleres reales
+  const [workshops, setWorkshops] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const loadData = async () => {
     try {
       const user = await getUserProfile();
-      console.log('Perfil del usuario:', user); // Verifica estructura
-
       const workshopsData = await getWorkshopsForUser(user.userId);
-      console.log('Talleres desde API:', workshopsData);
 
       if (workshopsData.type === 'SUCCESS') {
-        setWorkshops(workshopsData.result); // Asume que workshopsData.message es el array
+        setWorkshops(workshopsData.result);
       }
     } catch (error) {
       console.error("Error al cargar datos:", error);
@@ -32,6 +32,14 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     loadData();
   }, []);
+
+  const openInscription = () => {
+    setShowModal(true)
+  }
+
+  const closeInscription = () => {
+    setShowModal(false)
+  }
 
 
 
@@ -50,8 +58,8 @@ export default function HomeScreen({ navigation }) {
             <ActivityCard
               key={index}
               activity={activity}
-              onPressBlue={() => console.log(`Ver más de ${activity.name}`)}
-              textBlue="Ver más"
+              onPressBlue={openInscription}
+              textBlue="Inscribirse"
             />
           ))
         )}
@@ -59,46 +67,39 @@ export default function HomeScreen({ navigation }) {
 
       </ScrollView>
 
+      <BottomNav navigation={navigation} onMenuPress={() => setSidebarVisible(true)} />
       <Sidebar visible={sidebarVisible} onClose={() => setSidebarVisible(false)} navigation={navigation} />
 
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
-          <Image source={require('../../assets/hogar.png')} style={styles.navIconImage} />
-          <Text style={styles.navText}>Inicio</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.navItem}
-          onPress={() => navigation.navigate('MisEventos')}
-        >
-          <Image source={require('../../assets/entrada-active.png')} style={styles.navIconImage} />
-          <Text style={styles.navText}>Mis eventos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem} onPress={() => setSidebarVisible(true)}>
-          <Image source={require('../../assets/menu-active.png')} style={styles.navIconImage} />
-          <Text style={styles.navText}>Menú</Text>
-        </TouchableOpacity>
-      </View>
+
+
+      <ModalComponent
+        show={showModal}
+        onClose={closeInscription}
+        title="Confirmación"
+      >
+        <Text style={{ fontSize: 20, color: 'black', textAlign: 'center' }}>
+          Modal funcionando correctamente ✅
+        </Text>
+      </ModalComponent>
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f0f0f0', paddingBottom: 30 },
-  scrollContent: { paddingVertical: 20, alignItems: 'center', paddingBottom: 80 },
-  card: { width: '90%', backgroundColor: 'white', borderRadius: 15, padding: 20, elevation: 5, marginBottom: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 15 },
-  description: { fontSize: 14, color: '#666', marginVertical: 10, textAlign: 'center' },
-  button: { backgroundColor: '#6200EE', padding: 12, borderRadius: 8, marginTop: 15, alignSelf: 'center', width: '100%' },
-  buttonText: { color: '#FFF', textAlign: 'center', fontWeight: '600' },
-  date: { textAlign: 'center', marginVertical: 10, color: '#666', fontSize: 16 },
-  bottomNav: { flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#6200EE', width: '100%', height: 60, position: 'absolute', bottom: 0, left: 0 },
-  navItem: { alignItems: 'center' },
-  navIcon: { fontSize: 24, color: 'white' },
-  navText: { color: 'white', fontSize: 12, marginTop: 5 },
-  navIconImage: {
-    width: 24,
-    height: 24,
-    resizeMode: 'contain',
-    tintColor: 'white'
-  }
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+    paddingBottom: 30,
+  },
+  scrollContent: {
+    paddingVertical: 20,
+    alignItems: 'center',
+    paddingBottom: 80,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
 });
